@@ -1,0 +1,1244 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>402Startup - The Exchange of Future Ideas</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            box-sizing: border-box;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #111111;
+            --accent-bg: #1a1a1a;
+            --border-primary: #333333;
+            --border-accent: #555555;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --accent-orange: #ff6b35;
+            --accent-blue: #4ecdc4;
+            --accent-purple: #9b59b6;
+            --accent-green: #2ecc71;
+            --accent-red: #e74c3c;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--secondary-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-accent);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-orange);
+        }
+
+        .container {
+            min-height: 100%;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            padding: 32px 0;
+            border-bottom: 1px solid var(--border-primary);
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-orange), transparent);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        .header-left {
+            flex: 1;
+        }
+
+        .header-left h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-left .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .header-left .tagline {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .explore-btn {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-accent);
+            padding: 12px 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .explore-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .explore-btn:hover::before {
+            left: 100%;
+        }
+
+        .explore-btn:hover {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 48px 0;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .content-left {
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        .content-right {
+            position: sticky;
+            top: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Section Styles */
+        .section {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 32px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .section-badge {
+            padding: 4px 12px;
+            background: var(--accent-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Ideas Grid */
+        .ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .idea-card {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .idea-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .idea-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .idea-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-1px);
+        }
+
+        .idea-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .idea-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .idea-price {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-orange);
+            background: rgba(255, 107, 53, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .idea-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .idea-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .idea-category {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .unlock-btn {
+            background: transparent;
+            color: var(--accent-orange);
+            border: 1px solid var(--accent-orange);
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .unlock-btn:hover {
+            background: var(--accent-orange);
+            color: var(--primary-bg);
+        }
+
+        /* Sidebar Components */
+        .sidebar-section {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .sidebar-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        /* Random Idea */
+        .random-card {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .random-idea-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .random-idea-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .reveal-btn {
+            background: var(--accent-blue);
+            color: var(--primary-bg);
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .reveal-btn:hover {
+            background: #45b7aa;
+            transform: translateY(-1px);
+        }
+
+        /* Submit Form */
+        .submit-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 4px;
+            padding: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .submit-btn {
+            background: var(--accent-orange);
+            color: var(--primary-bg);
+            border: none;
+            padding: 12px 24px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background: #e55a2b;
+            transform: translateY(-1px);
+        }
+
+        /* Community */
+        .testimonials {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .testimonial {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-primary);
+            border-left: 3px solid var(--accent-purple);
+            border-radius: 4px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .testimonial:hover {
+            border-left-color: var(--accent-orange);
+            background: rgba(255, 107, 53, 0.05);
+        }
+
+        .testimonial-text {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        /* Protocol Steps */
+        .protocol-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .protocol-step {
+            text-align: center;
+            padding: 16px;
+            background: var(--accent-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--accent-orange);
+            color: var(--primary-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin: 0 auto 8px;
+        }
+
+        .step-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .step-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .protocol-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 32px 0;
+            border-top: 1px solid var(--border-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 32px;
+            height: 32px;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+            transform: translateY(-1px);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 24px;
+        }
+
+        .modal-content {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-accent);
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .modal-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-text {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-stats {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+
+        .modal-stats h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--accent-orange);
+            margin-bottom: 8px;
+        }
+
+        .modal-stats p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .content-right {
+                position: static;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .ideas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .protocol-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section {
+                padding: 20px;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="container"><!-- Header -->
+   <header class="header">
+    <div class="header-content">
+     <div class="header-left">
+      <h1 id="main-title">402Startup</h1>
+      <div class="subtitle" id="main-subtitle">
+       The Exchange of Future Ideas
+      </div>
+      <div class="tagline" id="tagline">
+       Every idea costs attention (x402 micro-payment)
+      </div>
+     </div>
+     <div class="header-right">
+      <div class="status-indicator">
+       <div class="status-dot"></div><span>Live</span>
+      </div><button class="explore-btn" onclick="scrollToIdeas()">Explore</button>
+     </div>
+    </div>
+   </header><!-- Main Content -->
+   <main class="main-content">
+    <div class="content-left"><!-- Featured Ideas -->
+     <section class="section">
+      <div class="section-header">
+       <h2 class="section-title" id="popular-title">Featured Concepts</h2>
+       <div class="section-badge">
+        6 ideas
+       </div>
+      </div>
+      <div class="ideas-grid">
+       <div class="idea-card" onclick="openModal('uber-friends')">
+        <div class="idea-header">
+         <div>
+          <h3 class="idea-title">Uber for Imaginary Friends</h3>
+          <div class="idea-category">
+           Social
+          </div>
+         </div>
+         <div class="idea-price">
+          x402
+         </div>
+        </div>
+        <p class="idea-description">On-demand invisible companions for any occasion</p>
+        <div class="idea-footer"><button class="unlock-btn">Unlock</button>
+        </div>
+       </div>
+       <div class="idea-card" onclick="openModal('edible-shoes')">
+        <div class="idea-header">
+         <div>
+          <h3 class="idea-title">Edible Shoes</h3>
+          <div class="idea-category">
+           Fashion
+          </div>
+         </div>
+         <div class="idea-price">
+          x402
+         </div>
+        </div>
+        <p class="idea-description">Sustainable footwear you can actually eat</p>
+        <div class="idea-footer"><button class="unlock-btn">Unlock</button>
+        </div>
+       </div>
+       <div class="idea-card" onclick="openModal('ant-airbnb')">
+        <div class="idea-header">
+         <div>
+          <h3 class="idea-title">Airbnb for Ant Colonies</h3>
+          <div class="idea-category">
+           Housing
+          </div>
+         </div>
+         <div class="idea-price">
+          x402
+         </div>
+        </div>
+        <p class="idea-description">Micro-accommodations for traveling insects</p>
+        <div class="idea-footer"><button class="unlock-btn">Unlock</button>
+        </div>
+       </div>
+       <div class="idea-card" onclick="openModal('psychic-plants')">
+        <div class="idea-header">
+         <div>
+          <h3 class="idea-title">AI Psychic Plants</h3>
+          <div class="idea-category">
+           Tech
+          </div>
+         </div>
+         <div class="idea-price">
+          x402
+         </div>
+        </div>
+        <p class="idea-description">Houseplants that predict your emotional state</p>
+        <div class="idea-footer"><button class="unlock-btn">Unlock</button>
+        </div>
+       </div>
+       <div class="idea-card" onclick="openModal('rent-grandparent')">
+        <div class="idea-header">
+         <div>
+          <h3 class="idea-title">Rent-a-Grandparent</h3>
+          <div class="idea-category">
+           Service
+          </div>
+         </div>
+         <div class="idea-price">
+          x402
+         </div>
+        </div>
+        <p class="idea-description">Temporary wisdom and life advice on demand</p>
+        <div class="idea-footer"><button class="unlock-btn">Unlock</button>
+        </div>
+       </div>
+       <div class="idea-card" onclick="openModal('regret-subscription')">
+        <div class="idea-header">
+         <div>
+          <h3 class="idea-title">Subscription to Regret</h3>
+          <div class="idea-category">
+           Lifestyle
+          </div>
+         </div>
+         <div class="idea-price">
+          x402
+         </div>
+        </div>
+        <p class="idea-description">Daily reminders of your past mistakes</p>
+        <div class="idea-footer"><button class="unlock-btn">Unlock</button>
+        </div>
+       </div>
+      </div>
+     </section><!-- Community Testimonials -->
+     <section class="section">
+      <div class="section-header">
+       <h2 class="section-title" id="community-title">Community</h2>
+       <div class="section-badge">
+        Recent
+       </div>
+      </div>
+      <div class="testimonials">
+       <div class="testimonial" onclick="openModal('testimonial-1')">
+        <p class="testimonial-text">"I unlocked the imaginary friend startup, now my cat has a roommate."</p>
+       </div>
+       <div class="testimonial" onclick="openModal('testimonial-2')">
+        <p class="testimonial-text">"Edible shoes saved me from hangry meetings."</p>
+       </div>
+       <div class="testimonial" onclick="openModal('testimonial-3')">
+        <p class="testimonial-text">"The ant Airbnb is surprisingly profitable."</p>
+       </div>
+      </div>
+     </section>
+    </div>
+    <div class="content-right"><!-- Random Discovery -->
+     <div class="sidebar-section">
+      <h3 class="sidebar-title" id="random-title">Discovery Zone</h3>
+      <div class="random-card">
+       <h4 class="random-idea-title">Socks with Built-in Plant Sprouts</h4>
+       <p class="random-idea-desc">Grow herbs while you walk</p><button class="reveal-btn" onclick="openModal('random-sock-plants')">Reveal Concept</button>
+      </div>
+     </div><!-- Submit Form -->
+     <div class="sidebar-section">
+      <h3 class="sidebar-title" id="submit-title">Submit Idea</h3>
+      <form class="submit-form" onsubmit="handleSubmit(event)">
+       <div class="form-group"><label for="idea-name" class="form-label">Idea Name</label> <input type="text" id="idea-name" class="form-input" required>
+       </div>
+       <div class="form-group"><label for="idea-description" class="form-label">Description</label> <textarea id="idea-description" class="form-textarea" required></textarea>
+       </div>
+       <div class="form-group"><label for="idea-category" class="form-label">Category</label> <select id="idea-category" class="form-select" required> <option value="">Select category</option> <option value="tech">Tech</option> <option value="social">Social</option> <option value="fashion">Fashion</option> <option value="service">Service</option> <option value="lifestyle">Lifestyle</option> </select>
+       </div><button type="submit" class="submit-btn">Submit</button>
+      </form>
+     </div><!-- How It Works -->
+     <div class="sidebar-section">
+      <h3 class="sidebar-title" id="protocol-title">How It Works</h3>
+      <div class="protocol-steps">
+       <div class="protocol-step">
+        <div class="step-number">
+         1
+        </div>
+        <div class="step-title">
+         Browse
+        </div>
+        <div class="step-desc">
+         Explore ideas
+        </div>
+       </div>
+       <div class="protocol-step">
+        <div class="step-number">
+         2
+        </div>
+        <div class="step-title">
+         Pay
+        </div>
+        <div class="step-desc">
+         x402 tokens
+        </div>
+       </div>
+       <div class="protocol-step">
+        <div class="step-number">
+         3
+        </div>
+        <div class="step-title">
+         Access
+        </div>
+        <div class="step-desc">
+         Full concept
+        </div>
+       </div>
+      </div>
+      <p class="protocol-description">Micro-payments unlock the full potential of creative ideas while supporting innovation.</p>
+     </div>
+    </div>
+   </main><!-- Footer -->
+   <footer class="footer">
+    <div class="footer-text">
+     © 2024 402Startup — Unlocking Innovation, One Idea at a Time
+    </div>
+    <div class="social-links"><a href="#" class="social-link">𝕏</a> <a href="#" class="social-link">D</a> <a href="#" class="social-link">L</a>
+    </div>
+   </footer>
+  </div><!-- Modal -->
+  <div class="modal" id="modal">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h2 class="modal-title" id="modal-title"></h2><button class="close-btn" onclick="closeModal()">×</button>
+    </div>
+    <div id="modal-body"></div>
+   </div>
+  </div>
+  <script>
+        // Configuration object
+        const defaultConfig = {
+            main_title: "402Startup",
+            main_subtitle: "The Exchange of Future Ideas",
+            tagline: "Every idea costs attention (x402 micro-payment)",
+            popular_title: "Featured Concepts",
+            random_title: "Discovery Zone",
+            submit_title: "Submit Idea",
+            community_title: "Community",
+            protocol_title: "How It Works",
+            background_color: "#0a0a0a",
+            surface_color: "#111111",
+            text_color: "#ffffff",
+            primary_action_color: "#ff6b35",
+            secondary_action_color: "#4ecdc4",
+            font_family: "Inter",
+            font_size: 16
+        };
+
+        // Initialize Element SDK
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig: defaultConfig,
+                onConfigChange: async (config) => {
+                    // Update text content
+                    const elements = {
+                        'main-title': config.main_title || defaultConfig.main_title,
+                        'main-subtitle': config.main_subtitle || defaultConfig.main_subtitle,
+                        'tagline': config.tagline || defaultConfig.tagline,
+                        'popular-title': config.popular_title || defaultConfig.popular_title,
+                        'random-title': config.random_title || defaultConfig.random_title,
+                        'submit-title': config.submit_title || defaultConfig.submit_title,
+                        'community-title': config.community_title || defaultConfig.community_title,
+                        'protocol-title': config.protocol_title || defaultConfig.protocol_title
+                    };
+
+                    Object.entries(elements).forEach(([id, text]) => {
+                        const element = document.getElementById(id);
+                        if (element) element.textContent = text;
+                    });
+
+                    // Update colors
+                    const backgroundColor = config.background_color || defaultConfig.background_color;
+                    const surfaceColor = config.surface_color || defaultConfig.surface_color;
+                    const textColor = config.text_color || defaultConfig.text_color;
+                    const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+                    const secondaryColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+
+                    // Update CSS custom properties
+                    document.documentElement.style.setProperty('--primary-bg', backgroundColor);
+                    document.documentElement.style.setProperty('--secondary-bg', surfaceColor);
+                    document.documentElement.style.setProperty('--text-primary', textColor);
+                    document.documentElement.style.setProperty('--accent-orange', primaryColor);
+                    document.documentElement.style.setProperty('--accent-blue', secondaryColor);
+
+                    // Update font
+                    const customFont = config.font_family || defaultConfig.font_family;
+                    const baseFontStack = '-apple-system, BlinkMacSystemFont, sans-serif';
+                    document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+
+                    // Update font size
+                    const baseSize = config.font_size || defaultConfig.font_size;
+                    document.documentElement.style.fontSize = `${baseSize}px`;
+                },
+                mapToCapabilities: (config) => ({
+                    recolorables: [
+                        {
+                            get: () => config.background_color || defaultConfig.background_color,
+                            set: (value) => {
+                                if (window.elementSdk) {
+                                    window.elementSdk.setConfig({ background_color: value });
+                                }
+                            }
+                        },
+                        {
+                            get: () => config.surface_color || defaultConfig.surface_color,
+                            set: (value) => {
+                                if (window.elementSdk) {
+                                    window.elementSdk.setConfig({ surface_color: value });
+                                }
+                            }
+                        },
+                        {
+                            get: () => config.text_color || defaultConfig.text_color,
+                            set: (value) => {
+                                if (window.elementSdk) {
+                                    window.elementSdk.setConfig({ text_color: value });
+                                }
+                            }
+                        },
+                        {
+                            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+                            set: (value) => {
+                                if (window.elementSdk) {
+                                    window.elementSdk.setConfig({ primary_action_color: value });
+                                }
+                            }
+                        },
+                        {
+                            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+                            set: (value) => {
+                                if (window.elementSdk) {
+                                    window.elementSdk.setConfig({ secondary_action_color: value });
+                                }
+                            }
+                        }
+                    ],
+                    borderables: [],
+                    fontEditable: {
+                        get: () => config.font_family || defaultConfig.font_family,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ font_family: value });
+                            }
+                        }
+                    },
+                    fontSizeable: {
+                        get: () => config.font_size || defaultConfig.font_size,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ font_size: value });
+                            }
+                        }
+                    }
+                }),
+                mapToEditPanelValues: (config) => new Map([
+                    ["main_title", config.main_title || defaultConfig.main_title],
+                    ["main_subtitle", config.main_subtitle || defaultConfig.main_subtitle],
+                    ["tagline", config.tagline || defaultConfig.tagline],
+                    ["popular_title", config.popular_title || defaultConfig.popular_title],
+                    ["random_title", config.random_title || defaultConfig.random_title],
+                    ["submit_title", config.submit_title || defaultConfig.submit_title],
+                    ["community_title", config.community_title || defaultConfig.community_title],
+                    ["protocol_title", config.protocol_title || defaultConfig.protocol_title]
+                ])
+            });
+        }
+
+        // Modal content data
+        const modalContent = {
+            'uber-friends': {
+                title: 'Uber for Imaginary Friends',
+                text: 'FriendlyRide connects you with professional imaginary companions on demand. Whether you need a workout buddy, someone to talk through problems, or just company during lonely Netflix binges, our certified invisible friends are available 24/7. Each friend comes with a detailed personality profile, conversation skills rating, and customer reviews from other users who\'ve shared quality time with them.',
+                stats: 'Market Potential: 73% | Risk Level: Medium | Funding Needed: $2.3M'
+            },
+            'edible-shoes': {
+                title: 'Edible Shoes',
+                text: 'ChewStep revolutionizes fashion and snacking with biodegradable footwear made from compressed fruit leather, vegetable fibers, and edible glues. Perfect for long flights, hiking trips, or emergency situations. Available in flavors like "Strawberry Stiletto," "Chocolate Loafer," and "Mint Sneaker." Each pair provides 2-3 days of nutritional value and comes with flavor-enhancing socks.',
+                stats: 'Market Potential: 45% | Risk Level: High | Funding Needed: $5.7M'
+            },
+            'ant-airbnb': {
+                title: 'Airbnb for Ant Colonies',
+                text: 'AntBnB offers premium micro-accommodations for ant colonies seeking temporary housing during migration, construction, or vacation. Our network includes luxury sand castles, organic compost penthouses, and underground tunnel systems. Each listing includes amenities like sugar water fountains, crumb buffets, and 24/7 aphid concierge services.',
+                stats: 'Market Potential: 12% | Risk Level: Very High | Funding Needed: $890K'
+            },
+            'psychic-plants': {
+                title: 'AI Psychic Plants',
+                text: 'PlantMind uses advanced AI sensors embedded in houseplants to analyze your biometric data, daily routines, and emotional patterns. Your fern will text you warnings about upcoming bad moods, your succulent will suggest optimal nap times, and your peace lily will recommend when to call your mother. Includes a premium subscription for relationship advice from your rubber tree.',
+                stats: 'Market Potential: 67% | Risk Level: Medium | Funding Needed: $3.2M'
+            },
+            'rent-grandparent': {
+                title: 'Rent-a-Grandparent',
+                text: 'GrandRent connects young adults with experienced seniors for temporary wisdom exchanges. Need someone to teach you how to fold fitted sheets? Want life advice from someone who survived the 80s? Our certified grandparents offer services like cookie baking lessons, story time, unconditional emotional support, and professional guilt trips when you make poor decisions.',
+                stats: 'Market Potential: 89% | Risk Level: Low | Funding Needed: $1.1M'
+            },
+            'regret-subscription': {
+                title: 'Subscription to Regret',
+                text: 'RegretMail delivers personalized daily reminders of your past mistakes, poor decisions, and missed opportunities. Our AI analyzes your social media history, purchase records, and life choices to craft perfectly timed guilt trips. Premium subscribers receive weekly "What If" scenarios and monthly "Paths Not Taken" documentary-style videos about their alternate lives.',
+                stats: 'Market Potential: 34% | Risk Level: Psychological | Funding Needed: $750K'
+            },
+            'random-sock-plants': {
+                title: 'Socks with Built-in Plant Sprouts',
+                text: 'GrowSocks feature embedded seeds in the heel and toe areas that sprout into herbs and microgreens as you walk. The moisture from your feet and friction from walking creates the perfect growing environment. After 2-3 weeks of wear, harvest fresh basil, mint, or cilantro directly from your footwear. Includes a companion app to track your "crop yield" and share recipes.',
+                stats: 'Market Potential: 23% | Risk Level: Sanitary Concerns | Funding Needed: $1.8M'
+            },
+            'testimonial-1': {
+                title: 'Customer Success Story',
+                text: 'Sarah from Portland unlocked the Uber for Imaginary Friends concept and immediately connected with "Gerald," a 45-year-old invisible accountant who loves hiking and philosophical discussions. "Gerald has been the perfect workout companion," Sarah reports. "He never judges my form, always encourages me to do one more rep, and gives excellent tax advice during cool-down stretches. My cat Mr. Whiskers was initially suspicious but now they\'re best friends. I\'ve never felt less alone during my morning jogs."',
+                stats: 'Satisfaction Rating: 4.8/5 | Friendship Duration: 3 months | Invisible Companion: Gerald'
+            },
+            'testimonial-2': {
+                title: 'Workplace Innovation',
+                text: 'Marcus, a software engineer from Austin, invested in the Edible Shoes startup after unlocking the full concept. "I was skeptical until I tried the prototype Chocolate Loafers during a 12-hour coding session," he explains. "By hour 8, I was genuinely hungry and remembered I was literally wearing snacks. The heel was surprisingly delicious - like a protein bar with better arch support. My productivity increased 40% knowing I had emergency food on my feet. I\'ve since ordered the entire seasonal collection."',
+                stats: 'Productivity Increase: 40% | Shoes Consumed: 3 pairs | Favorite Flavor: Chocolate Loafer'
+            },
+            'testimonial-3': {
+                title: 'Unexpected Profit',
+                text: 'Jennifer discovered the Airbnb for Ant Colonies idea during a lunch break and decided to list her backyard ant farm on the platform. "I thought it was a joke until I started getting bookings," she laughs. "Apparently, there\'s a huge demand for luxury ant accommodations during summer migration season. I\'ve hosted colonies from three different continents. The Argentine ants left a 5-star review and recommended my property to their extended family. I\'m now making $200/month from my ant empire."',
+                stats: 'Monthly Revenue: $200 | Ant Colonies Hosted: 47 | Average Rating: 4.9/5'
+            }
+        };
+
+        // Modal functions
+        function openModal(contentId) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const content = modalContent[contentId];
+            
+            if (content) {
+                modalTitle.textContent = content.title;
+                modalBody.innerHTML = `
+                    <p class="modal-text">${content.text}</p>
+                    <div class="modal-stats">
+                        <h4>Analytics</h4>
+                        <p>${content.stats}</p>
+                    </div>
+                `;
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const ideaName = document.getElementById('idea-name').value;
+            const ideaDescription = document.getElementById('idea-description').value;
+            const ideaCategory = document.getElementById('idea-category').value;
+            
+            // Show success modal
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            
+            modalTitle.textContent = 'Submission Successful!';
+            modalBody.innerHTML = `
+                <p class="modal-text">Thank you for contributing to the 402Startup ecosystem!</p>
+                <p class="modal-text">Your idea "${ideaName}" has been submitted for review. If approved, it will be added to our marketplace.</p>
+                <div class="modal-stats">
+                    <h4>Submission Details</h4>
+                    <p>Category: ${ideaCategory} | Status: Under Review | ETA: 24-48 hours</p>
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        // Scroll to ideas function
+        function scrollToIdeas() {
+            document.querySelector('.ideas-grid').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'996b8d172573c23e',t:'MTc2MTgzNDAwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
